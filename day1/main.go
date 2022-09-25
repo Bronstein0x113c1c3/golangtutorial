@@ -9,4 +9,6 @@ func main() {
 	fmt.Println(j)
 	k := 19
 	fmt.Println(k)
+	m := 20.6
+	fmt.Println(m)
 }
