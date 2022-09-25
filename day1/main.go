@@ -9,4 +9,8 @@ func main() {
 	fmt.Println(k)
 	m := 20.6
 	fmt.Println(m)
+
+	//test something
+	x := "test_branch"
+	fmt.Println(x)
 }
