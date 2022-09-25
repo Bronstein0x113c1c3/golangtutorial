@@ -11,4 +11,6 @@ func main() {
 	fmt.Println(k)
 	m := 20.6
 	fmt.Println(m)
+	p := "github teleport mode"
+	fmt.Println(p)
 }
