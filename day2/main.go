@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	var a bool = true
-	fmt.Printf("%v", a)
+	fmt.Printf("%v %T \n", a, a)
 	fmt.Println("Hello Playground")
 }
 
