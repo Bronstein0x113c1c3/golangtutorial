@@ -3,7 +3,6 @@ package main
 import "fmt"
 
 func main() {
-	var i int
-	i = 2
+	i := 21
 	fmt.Println(i)
 }
