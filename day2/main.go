@@ -3,12 +3,16 @@ package main
 import "fmt"
 
 func main() {
-	var a int8 = 1
-	var b int8 = 8
+	var a int8 = 32
+	var b int8 = 89
 	fmt.Printf("%v \n", a+b)
 	fmt.Printf("%v \n", a-b)
 	fmt.Printf("%v \n", a/b)
 	fmt.Printf("%v \n", a*b)
+	fmt.Printf("%b \n", a^b)
+	fmt.Printf("%b \n", a|b)
+	fmt.Printf("%b \n", a&b)
+	fmt.Printf("%b \n", a&^b)
 }
 
 /*
