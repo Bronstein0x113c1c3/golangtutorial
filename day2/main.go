@@ -3,9 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	var a int8 = -120
-	fmt.Printf("%v %T \n", a, a)
-	fmt.Println("Hello Playground")
+	var a int8 = 1
+	var b int8 = 8
+	fmt.Printf("%v \n", a+b)
+	fmt.Printf("%v \n", a-b)
+	fmt.Printf("%v \n", a/b)
+	fmt.Printf("%v \n", a*b)
 }
 
 /*
