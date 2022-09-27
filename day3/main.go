@@ -11,6 +11,9 @@ func main() {
 	/*
 		you cannot assign a const: i = 15 is illegal
 	*/
+	/*
+		inner-scope variable is more prioritized
+	*/
 	fmt.Printf("%v, %T \n", a, a)
 	fmt.Println("Hello Playground")
 }
