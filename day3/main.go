@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	red = itoa
+	red = iota
 	yellow
 	blue
 	black
@@ -26,5 +26,9 @@ func main() {
 	fmt.Printf("%v, %T \n", yellow, yellow)
 	fmt.Printf("%v, %T \n", blue, blue)
 	fmt.Printf("%v, %T \n", black, black)
+
+	/*
+		iota start from zero, in the list of constants
+	*/
 
 }
