@@ -16,4 +16,8 @@ func main() {
 	fmt.Printf("a: %v %v %v \n", a, len(a), cap(a))
 	a = append(a, []int{2, 3, 5, 7, 8, 9, 323}...)
 	fmt.Printf("a: %v %v %v \n", a, len(a), cap(a))
+	b := make([]int, 15)
+	b = append(a[:2], a[3:]...)
+	fmt.Println(b)
+	fmt.Println(a)
 }
