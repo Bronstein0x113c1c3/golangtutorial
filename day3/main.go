@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	const i int16 = 42
+	const i = 42
 	/*
 		you cannot assign a const: i = 15 is illegal
 	*/
