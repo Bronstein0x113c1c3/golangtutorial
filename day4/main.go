@@ -9,5 +9,5 @@ func main() {
 	// points[2] =
 	fmt.Printf("%v, %T \n", points, points)
 	fmt.Printf("%v, %T \n", points[2], points[2])
-
+	fmt.Println(len(points[1]))
 }
