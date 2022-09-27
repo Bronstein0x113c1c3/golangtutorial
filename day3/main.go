@@ -5,10 +5,10 @@ import (
 )
 
 const (
-	red    = 0
-	yellow = 1
-	blue   = 2
-	black  = 3
+	red = itoa
+	yellow
+	blue
+	black
 )
 
 func main() {
