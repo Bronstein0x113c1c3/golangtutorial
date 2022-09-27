@@ -4,11 +4,13 @@ import (
 	"fmt"
 )
 
+const a = 42
+
 func main() {
-	const i = 42
+
 	/*
 		you cannot assign a const: i = 15 is illegal
 	*/
-	fmt.Printf("%v, %T \n", i, i)
+	fmt.Printf("%v, %T \n", a, a)
 	fmt.Println("Hello Playground")
 }
