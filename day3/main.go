@@ -6,6 +6,9 @@ import (
 
 func main() {
 	const i int16 = 42
+	/*
+		you cannot assign a const: i = 15 is illegal
+	*/
 	fmt.Printf("%v, %T \n", i, i)
 	fmt.Println("Hello Playground")
 }
