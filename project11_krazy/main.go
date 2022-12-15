@@ -9,6 +9,7 @@ import (
 	"log"
 	"math/rand"
 	"strconv"
+	"sync"
 
 	// "sync"
 
@@ -28,6 +29,7 @@ type List_Student struct {
 }
 
 var student_map = make(map[int]bool)
+var l = sync.RWMutex{}
 
 func Crawling(linktocrawl string, pagesize int, page_status int /*entity_chan chan []Student_Entity, wg *sync.WaitGroup*/, entity_chan chan []Student_Entity, worker_id chan int, check map[int]bool) {
 	// Start a query instance (HTML page) to crawl (webpage?, size of page?, which page?)
@@ -59,7 +61,9 @@ func Crawling(linktocrawl string, pagesize int, page_status int /*entity_chan ch
 		// fmt.Println(student)
 		if _, exist := check[student.Id]; exist == false {
 			student_entity = append(student_entity, student)
+			l.Lock()
 			check[student.Id] = true
+			l.Unlock()
 		}
 	})
 	entity_chan <- student_entity
