@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package="proto/file_transfer";
+
+message File_Info{
+    bytes data = 2;
+    string name = 1;
+}
+message Status{
+    bool status = 1;
+}
+
+service File_Transfer{
+    rpc SendFile(File_Info) returns (Status);
+}
