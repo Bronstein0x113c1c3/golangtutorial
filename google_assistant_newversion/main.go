@@ -7,6 +7,7 @@ import (
 	"os"
 	authentication "project_a/authentication"
 	serv "project_a/service_implementation"
+	"runtime"
 	"time"
 )
 
@@ -27,9 +28,14 @@ func main() {
 
 		fmt.Print("Query: ")
 		query := readLine()
-		resp := conversation.Query(query)
-		fmt.Println("Response: ", resp.GetDialogStateOut().GetSupplementalDisplayText())
+		if query != "quit" {
+			resp := conversation.Query(query)
+			fmt.Println("Response: ", resp.GetDialogStateOut().GetSupplementalDisplayText())
+		} else {
+			runtime.GC()
+		}
 	}
+
 }
 func readLine() string {
 	rdr := bufio.NewReader(os.Stdin)
