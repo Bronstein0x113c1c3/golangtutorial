@@ -5,8 +5,9 @@ import (
 )
 
 type StudentInterface interface {
-	AddStudents(list *entity.StudentList, student_info *entity.Student) *entity.StudentList
+	AddStudents(student_info *entity.Student) *entity.StudentList
 	GetStudents() *entity.StudentList
-	DeleteStudents(list *entity.StudentList, id string, student_info *entity.Student) *entity.StudentList
-	UpdateStudents(list *entity.StudentList, id string, student_info *entity.Student) *entity.StudentList
+	DeleteStudents(id string) *entity.StudentList
+	UpdateStudents(id string, student_info *entity.Student) *entity.StudentList
+	FindStudents(id string) (bool, int)
 }
