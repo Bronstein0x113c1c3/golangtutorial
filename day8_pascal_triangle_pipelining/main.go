@@ -2,7 +2,8 @@ package main
 
 import "fmt"
 
-func result_chan_pipeline(number_chan chan int, result_chan chan int) {
+func result_chan_pipeline(number_chan chan int) chan int {
+	result_chan := make(chan int, 1000000)
 	var a, b int
 	go func() {
 		for {
@@ -11,14 +12,15 @@ func result_chan_pipeline(number_chan chan int, result_chan chan int) {
 			result_chan <- a + b
 		}
 	}()
+	return result_chan
 }
 
 func pascal_triangle_concurrency(x []int) []int {
 	// var b, c int
 	a := x
 
-	number_chan := make(chan int, 3)
-	result_chan := make(chan int, 1000000)
+	number_chan := make(chan int, 2)
+
 	// go func() {
 	// 	for {
 	// 		b = <-number_chan
@@ -26,7 +28,7 @@ func pascal_triangle_concurrency(x []int) []int {
 	// 		result_chan <- b + c
 	// 	}
 	// }()
-	result_chan_pipeline(number_chan, result_chan)
+	result_chan := result_chan_pipeline(number_chan)
 	for i := 1; i <= len(a)-1; i++ {
 		number_chan <- a[i-1]
 		number_chan <- a[i]
