@@ -55,3 +55,4 @@ func main() {
 	fmt.Println("result: ", a)
 	fmt.Println(len(result_chan))
 }
+ko
