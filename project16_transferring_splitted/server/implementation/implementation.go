@@ -30,28 +30,37 @@ func (server *Server_Struct) InitDaConnection() {
 	}
 }
 func (server *Server_Struct) SendFile(stream pb.File_Transfer_SendFileServer) error {
+	log.Println("Got request!")
+	chunk_file := make([]byte, 0)
+	status := &pb.Status{}
+	file_name := ""
 	for {
 		file_data, err := stream.Recv()
-		if err == io.EOF {
-			var status *pb.Status
-			err_next := server.ProcessFile(file_data)
-			if err_next != nil {
-				status = &pb.Status{
-					Status: true,
-				}
-			} else {
-				status = &pb.Status{
-					Status: false,
-				}
-			}
-			stream.SendAndClose(status)
+		// log.Println(err)
+		// log.Println("hmmm")
+		if file_data == nil {
+			status.Status = true
+			break
+		}
+		chunk_file = append(chunk_file, file_data.Data...)
+		file_name = file_data.Name
+		if err != nil {
+			status.Status = false
+			break
 		}
 	}
+	stream.SendAndClose(status)
+	return server.ProcessFile(chunk_file, file_name)
 }
-func (server *Server_Struct) ProcessFile(data *pb.File_Info) error {
-	if err := os.WriteFile(server.Dir+data.GetName(), data.GetData(), 0644); err != nil && err != io.EOF {
+
+// log.Println("Got problem???")
+// return nil
+
+func (server *Server_Struct) ProcessFile(data []byte, name string) error {
+	if err := os.WriteFile(server.Dir+"/"+name, data, 0644); err != nil && err != io.EOF {
 		return err
 	}
+	log.Println("Done!")
 	return nil
 }
 
