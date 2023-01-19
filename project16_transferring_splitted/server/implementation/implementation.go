@@ -11,15 +11,17 @@ import (
 	"google.golang.org/grpc"
 )
 
-func New(address string, port int16) *Server_Struct {
+func New(address string, port int16, dir string) *Server_Struct {
 	return &Server_Struct{
 		DestIP:   address,
 		DestPort: port,
+		Dir:      dir,
 	}
 }
 func (server *Server_Struct) InitDaConnection() {
 	lis, _ := net.Listen("tcp", server.DestIP+":"+strconv.Itoa(int(server.DestPort)))
 	log.Printf("Server created: %v:%v \n", server.DestIP, server.DestPort)
+	log.Printf("Working directory: %v \n", server.Dir)
 	s := grpc.NewServer()
 	pb.RegisterFile_TransferServer(s, server)
 	log.Println("Registered!")
@@ -31,16 +33,26 @@ func (server *Server_Struct) SendFile(stream pb.File_Transfer_SendFileServer) er
 	for {
 		file_data, err := stream.Recv()
 		if err == io.EOF {
-			server.ProcessFile(file_data, "./workdir")
-			status := &pb.Status{
-				Status: true,
+			var status *pb.Status
+			err_next := server.ProcessFile(file_data)
+			if err_next != nil {
+				status = &pb.Status{
+					Status: true,
+				}
+			} else {
+				status = &pb.Status{
+					Status: false,
+				}
 			}
 			stream.SendAndClose(status)
 		}
 	}
 }
-func (server *Server_Struct) ProcessFile(data *pb.File_Info, dir string) {
-	os.WriteFile(dir+data.GetName(), data.GetData(), 0644)
+func (server *Server_Struct) ProcessFile(data *pb.File_Info) error {
+	if err := os.WriteFile(server.Dir+data.GetName(), data.GetData(), 0644); err != nil && err != io.EOF {
+		return err
+	}
+	return nil
 }
 
 // func (s *Server_Struct) Self() *Server_Struct {
