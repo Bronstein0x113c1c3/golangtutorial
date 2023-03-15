@@ -18,7 +18,7 @@ func main() {
 		Client_Secret: authentication.Client_secret,
 	}
 	a.Init()
-	fmt.Println(a.Authentication_Info.Token.RefreshToken)
+	fmt.Println(a.Authentication_Info.Token.)
 	for {
 		conversation, err := a.NewConversation(300 * time.Second)
 		defer conversation.Assist_Client.CloseSend()

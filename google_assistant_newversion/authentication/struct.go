@@ -9,4 +9,5 @@ import (
 type Authentication_data struct {
 	Config *oauth2.Config
 	Token  *oauth2.Token
+	
 }

@@ -47,6 +47,7 @@ func (v *Authentication_data) StartAuthenticateServer() {
 	//fmt.Println(code)
 	var err error
 	v.Token, err = v.Config.Exchange(ctx, code)
+	
 	if err != nil {
 		panic(err)
 	}
