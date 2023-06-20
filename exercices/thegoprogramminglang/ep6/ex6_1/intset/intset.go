@@ -3,6 +3,7 @@ package intset
 import (
 	"bytes"
 	"fmt"
+	"math/bits"
 )
 
 // An IntSet is a set of small non-negative integers.
@@ -56,4 +57,32 @@ func (s *IntSet) String() string {
 	}
 	buf.WriteByte('}')
 	return buf.String()
+}
+
+// exercise1
+func (s *IntSet) Len() int {
+	total := 0
+	for _, word := range s.words {
+		total += bits.OnesCount64(word)
+	}
+	return total
+}
+func (s *IntSet) Remove(x int) int {
+	location, bit := (x / 64), (x % 64)
+	if location < len(s.words) {
+		s.words[location] = s.words[location] &^ (1 << bit)
+	}
+	return x
+}
+func (s *IntSet) Clear() {
+	for index := range s.words {
+		s.words[index] &^= s.words[index]
+	}
+}
+func (s *IntSet) Copy() *IntSet {
+	copied_words := make([]uint64, len(s.words))
+	copy(copied_words, s.words)
+	return &IntSet{
+		words: copied_words,
+	}
 }
