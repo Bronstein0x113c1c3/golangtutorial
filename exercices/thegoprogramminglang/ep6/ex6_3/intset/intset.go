@@ -116,12 +116,12 @@ func (s *IntSet) SymmetricDifference(t *IntSet) *IntSet {
 	}
 	return &IntSet{words: the_result_words}
 }
-func (s *IntSet) Elems() []int {
-	result := make([]int, 0)
+func (s *IntSet) Elems() []int64 {
+	result := make([]int64, 0)
 	for index := range s.words {
 		for i := 0; i < 64; i++ {
 			if (1<<i)&s.words[index] != 0 {
-				result = append(result, 64*index+i)
+				result = append(result, int64(64*index+i))
 			}
 		}
 	}
