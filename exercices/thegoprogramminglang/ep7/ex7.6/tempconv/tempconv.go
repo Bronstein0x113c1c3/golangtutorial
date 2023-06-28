@@ -25,6 +25,8 @@ func (f *celsiusFlag) Set(s string) error {
 	case "F", "°F":
 		f.Celsius = FToC(Fahrenheit(value))
 		return nil
+	case "K", "°K":
+		f.Celsius = Celsius(value - 273)
 	}
 	return fmt.Errorf("invalid temperature %q", s)
 }
