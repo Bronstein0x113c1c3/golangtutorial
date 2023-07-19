@@ -27,6 +27,7 @@ func (f *celsiusFlag) Set(s string) error {
 		return nil
 	case "K", "°K":
 		f.Celsius = Celsius(value - 273)
+		return nil
 	}
 	return fmt.Errorf("invalid temperature %q", s)
 }

@@ -8,6 +8,7 @@ import (
 
 func main() {
 	db := components.Database{"shoes": 50, "socks": 5}
+
 	http.HandleFunc("/list", db.List)
 	http.HandleFunc("/price", db.Price)
 	http.HandleFunc("/", db.Entry)

@@ -40,6 +40,7 @@ func (db *Database) Create(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Price not provided")
 		return
 	}
+
 	_, ok := (*db)[item]
 	if !ok {
 		price, err := strconv.ParseFloat(price_for_newitem, 64)
