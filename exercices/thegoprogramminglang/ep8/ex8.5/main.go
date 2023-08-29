@@ -19,22 +19,25 @@ func main() {
 	result_chan := make(chan result)
 	const (
 		xmin, ymin, xmax, ymax = -2, -2, +2, +2
-		width, height          = 4096, 4096
+		width, height          = 10000, 10000
 	)
 
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
 	for py := 0; py < height; py++ {
-		for px := 0; px < width; px++ {
-			wg.Add(1)
-			go func(py, px int, result_chan chan result) {
+		wg.Add(1)
+		go func(py int, result_chan chan result) {
+			for px := 0; px < width; px++ {
+
 				y := float64(py)/height*(ymax-ymin) + ymin
 				x := float64(px)/width*(xmax-xmin) + xmin
 				z := complex(x, y)
 				result_chan <- result{px, py, z}
-				wg.Done()
-			}(py, px, result_chan)
-			// Image point (px, py) represents complex value z.
-		}
+
+			}
+			wg.Done()
+		}(py, result_chan)
+		// Image point (px, py) represents complex value z.
+
 	}
 	go func(img *image.RGBA) {
 		for result := range result_chan {
