@@ -41,7 +41,7 @@ func main() {
 	}
 	go func(img *image.RGBA) {
 		for result := range result_chan {
-			img.Set(result.px, result.py, mandelbrot(result.z))
+			img.Set(result.px, result.py, sqrt(result.z))
 		}
 	}(img)
 	wg.Wait()
