@@ -15,5 +15,5 @@ func main() {
 	flag.Parse()
 	client_info := implementation.New(*ip, int16(*port), *dir)
 	client_info.InitDaConnection()
-	client_info.Transfer("headfirstgo2.pdf")
+	client_info.Transfer("view.png")
 }
