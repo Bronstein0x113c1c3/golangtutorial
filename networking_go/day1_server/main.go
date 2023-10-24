@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"os/signal"
@@ -67,26 +68,23 @@ import (
 // 	}
 // }
 
+// fault....
 func handleConnection(conn net.Conn) {
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
-	go func(ctx context.Context) {
+	for {
 		select {
 		case <-ctx.Done():
-			fmt.Println("Done!")
+			log.Println("Done!")
 			conn.Write([]byte("Goodbye! \n"))
+			log.Println("Said goodbye!")
 			conn.Close()
 			cancel()
 			return
 		default:
-			for {
-				conn.Write([]byte("Hello!"))
-			}
+			conn.Write([]byte("Hello!"))
 		}
-	}(ctx)
-	go func() {
-		<-ctx.Done()
-	}()
+	}
 }
 func main() {
 	// Set up a TCP listener
